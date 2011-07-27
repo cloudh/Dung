@@ -13,6 +13,7 @@ public class MainThread extends Thread {
 	int width, height;	//for view
 	Bitmap imgBack;
 	Dung dung;
+	ItemManagement itemManagement;
 	
 	public MainThread (SurfaceHolder holder, Context context) {
 		mHolder = holder;
@@ -24,8 +25,7 @@ public class MainThread extends Thread {
 		// 배경을 view사이즈에 맞춥니다.
 		imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
 		imgBack = Bitmap.createScaledBitmap(imgBack, width, height, false);
-		
-		dung = new Dung(context, 0, 0, 4);	//임시 dung 생성 
+		itemManagement = new ItemManagement(context);
 	}
 	
 	public void run() {
