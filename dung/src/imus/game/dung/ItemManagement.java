@@ -13,7 +13,7 @@ public class ItemManagement {
 	private Display display;
 	private int width;
 	private Random rnd;
-	//private int height;
+	private int height;
 	
 	private enum item {
 		DUNG,
@@ -28,7 +28,7 @@ public class ItemManagement {
 		context = _context;
 		display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		width = display.getWidth();
-		//height = display.getHeight();
+		height = display.getHeight();
 		rnd = new Random();
 	}
 	
@@ -78,6 +78,9 @@ public class ItemManagement {
 		//all item move
 		for (Item item : itemList){
 			item.move();
+			if (item.y >= height){
+				itemList.remove(item);
+			}
 		}
 	}
 	

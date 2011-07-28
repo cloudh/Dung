@@ -1,5 +1,8 @@
 package imus.game.dung;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,8 +15,8 @@ public class MainThread extends Thread {
 	SurfaceHolder mHolder;	// save surfaceHolder
 	int width, height;	//for view
 	Bitmap imgBack;
-	Dung dung;
 	ItemManagement itemManagement;
+	ItemManagementThread itemManagementThread;
 	
 	public MainThread (SurfaceHolder holder, Context context) {
 		mHolder = holder;
@@ -26,17 +29,24 @@ public class MainThread extends Thread {
 		imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
 		imgBack = Bitmap.createScaledBitmap(imgBack, width, height, false);
 		itemManagement = new ItemManagement(context);
+		itemManagementThread = new ItemManagementThread(context, itemManagement);
+//		itemManagementThread.start();
 	}
 	
 	public void run() {
 		Canvas canvas = null;
+		
+		Timer timer = new Timer(true);
+		timer.
+		
 		while (true) {
-				canvas = mHolder.lockCanvas();
+			canvas = mHolder.lockCanvas();
+			
 			try {
-				synchronized (mHolder) {
-					dung.move();
-					canvas.drawBitmap(imgBack, 0, 0, null);
-					canvas.drawBitmap(dung.img, dung.x, dung.y, null);
+				itemManagement.itemMove();
+				canvas.drawBitmap(imgBack, 0, 0, null);
+				for (Item item : itemManagement.getItemList()){
+					canvas.drawBitmap(item.img, item.x, item.y, null);
 				}
 			}
 			finally{

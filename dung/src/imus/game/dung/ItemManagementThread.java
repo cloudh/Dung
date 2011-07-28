@@ -22,7 +22,7 @@ public class ItemManagementThread extends Thread {
 	}
 	
 	public void run(){
-		while(true){
+		while(true) {
 			try {
 				this.wait(itemCycle);
 			} catch (InterruptedException e) {
